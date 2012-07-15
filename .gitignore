@@ -1,0 +1,5 @@
+bin/
+example/bin
+lib/*.jar
+*.pdg
+.DS_Store

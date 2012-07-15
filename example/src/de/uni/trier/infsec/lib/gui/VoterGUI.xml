@@ -1,0 +1,32 @@
+<evoting:VotingWindow title="eVoting" maximized="true"
+	xmlns:wtkx="http://pivot.apache.org/wtkx" xmlns="org.apache.pivot.wtk"
+	xmlns:bxml="http://pivot.apache.org/bxml" xmlns:evoting="de.uni.trier.infsec.lib.gui">
+	<content>
+		<BoxPane orientation="vertical" styles="{padding:6, spacing:8, fill:true}">
+			<BoxPane orientation="horizontal" styles="{padding:6, spacing:8, fill:true}">
+				<BoxPane orientation="vertical" styles="{padding:6, spacing:8, fill:true}">
+					<Label text="Please select your vote:"
+						styles="{font:'Arial 20', color:'#ff0000', horizontalAlignment:'left', verticalAlignment:'center'}" />
+					<ListView bxml:id="voteList" selectMode="single"
+						listData="['Candidate A', 'Candidate B', 'Candidate C', 'Candidate D']" />
+				</BoxPane>
+				<Border styles="{padding:6, color:'#999999'}">
+				<BoxPane orientation="vertical" styles="{padding:6, spacing:8, fill:true}">
+					<Label text="Your current vote: "
+						styles="{font:'Arial 20', color:'#ff0000', horizontalAlignment:'left', verticalAlignment:'center'}" />
+					<Label bxml:id="currentVote" text=""
+						styles="{font:'Arial 20', color:'#ff0000', horizontalAlignment:'left', verticalAlignment:'center'}" />
+				</BoxPane>
+				</Border>
+				<BoxPane orientation="vertical" styles="{padding:6, spacing:8, fill:true}">
+					 <TextInput bxml:id="privatekey" prompt="Your private key" textSize="24"/>
+					 <TextInput bxml:id="publickey"  prompt="Your public key" textSize="24"/>
+					 <TextInput bxml:id="credential" prompt="Your credential" textSize="24"/>
+				</BoxPane>
+			</BoxPane>
+			<BoxPane orientation="vertical" styles="{padding:6, spacing:8, fill:true}">
+				<PushButton bxml:id="pushButton" buttonData="Submit to Server"/>
+			</BoxPane>
+		</BoxPane>
+	</content>
+</evoting:VotingWindow>
