@@ -49,7 +49,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	<property name="example.sdg.file" value="de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg" />
 	<property name="viewer.webstart.file" value="graphviewer-webstart.jnlp" />
   
-	<target name="clean" description="clean up all generated files, but not the downloaded ones." >
+	<target name="clean" description="clean up all generated files, but not the downloaded ones" >
 	    <delete>
 	    	<fileset dir="." includes="*.pdg" />
     	</delete>
