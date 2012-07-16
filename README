@@ -33,6 +33,11 @@ the research projects "VALSOFT/Joana" (founded by the German DFG) as well as
 Parallel Programs - IFC4MC" (founded by the German DFG as part of the Priority
 Program 1496 "Reliably Secure Software Systems – RS3").
 
+The code of the verified example has been developed at the University of
+Trier (http://infsec.uni-trier.de) within the project "Implementation-Level
+Analysis of E-Voting Systems" which is also part of the aforementioned RS3
+program.
+
 You may find more information about this software at the homepage of the
 Programming Paradigms Group - IPD Snelting at the Karlsruhe Institute of
 Technology (http://pp.info.uni-karlsruhe.de/). Feel free to contact us for
