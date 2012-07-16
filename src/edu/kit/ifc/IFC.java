@@ -218,16 +218,41 @@ public final class IFC {
 		}
 	}
 	
-	public static void run(final IFCConfig config) throws ClassHierarchyException, IOException, UnsoundGraphException,
+	/**
+	 * Runs an information flow check using the given configuration. Returns <tt>true</tt> if the program is considered
+	 * save, returns <tt>false</tt> if a leak has been found.
+	 * @param config The information flow configuration.
+	 * @return <tt>true</tt> if the program is considered save, or <tt>false</tt> if a leak has been found.
+	 */
+	public static boolean run(final IFCConfig config) throws ClassHierarchyException, IOException, UnsoundGraphException,
 			CancelException {
-		final long t1 = System.currentTimeMillis();
+		final Collection<Violation> vios = computeIFC(config);
 		
+		if (vios.size() == 0) {
+			System.out.println("OK: Information flow considered save. The program is non-interferent.");
+		} else {
+			switch (config.policy) {
+			case CONFIDENTIALITY: {
+				System.out.println("WARNING: Information flow considered unsave. It MAY leak high information.");
+			} break;
+			case INTEGRITY: {
+				System.out.println("WARNING: Information flow considered unsave. Public (low) input"
+						+ "  MAY influence confidential (high) information.");
+			} break;
+			default:
+				throw new IllegalStateException("unknown security policy: " + config.policy);
+			}
+		}
+		
+		return vios.isEmpty();
+	}
+	
+	private static long buildSDG(final IFCConfig config, final String mainClassSimpleName, final String outputSDGfile)
+			throws ClassHierarchyException, IOException, UnsoundGraphException, CancelException {
 		Log.setMinLogLevel(LogLevel.WARN);
 
 		System.out.println("Analyzing class files from '" + new File(config.classpath).getAbsolutePath() + "'");
 		
-		final String mainClassSimpleName = WriteGraphToDot.sanitizeFileName(config.mainClassSignature.substring(1));
-
 		final Main.Config cfg = new Main.Config(mainClassSimpleName,
 				config.mainClassSignature.substring(1) + ".main([Ljava/lang/String;)V", 
 				config.classpath,
@@ -240,18 +265,27 @@ public final class IFC {
 		
 		final long t2 = System.currentTimeMillis();
 		
+		System.out.print("Saving SDG to " + outputSDGfile + "... ");
+		final BufferedOutputStream bOut = new BufferedOutputStream(new FileOutputStream(outputSDGfile));
+		SDGSerializer.toPDGFormat(sdg, bOut);
+		System.out.println("done.");
+		
+		return t2;
+	}
+	
+	public static Collection<Violation> computeIFC(final IFCConfig config) throws ClassHierarchyException, IOException,
+			UnsoundGraphException, CancelException {
+		final long t1 = System.currentTimeMillis();
+		
+		final String mainClassSimpleName = WriteGraphToDot.sanitizeFileName(config.mainClassSignature.substring(1));
 		final String outputSDGfile = mainClassSimpleName + "-main.ifc.pdg";
-		{
-			System.out.print("Saving SDG to " + outputSDGfile + "... ");
-			BufferedOutputStream bOut = new BufferedOutputStream(new FileOutputStream(outputSDGfile));
-			SDGSerializer.toPDGFormat(sdg, bOut);
-			System.out.println("done.");
-		}
+
+		final long t2 = buildSDG(config, mainClassSimpleName, outputSDGfile);
 
 		System.out.println("Checking " + outputSDGfile);
 		final joana.sdg.SDG sdgSec = joana.sdg.SDG.readFrom(outputSDGfile, new SecurityNodeFactory());
 		
-		final long t4 = System.currentTimeMillis();
+		final long t3 = System.currentTimeMillis();
 
 		System.out.print("Annotating SDG nodes... ");
 		final IEditableLattice<String> lat = createLattice("low<=high");
@@ -273,44 +307,30 @@ public final class IFC {
 			System.out.println();
 		}
 		
-		final long t5 = System.currentTimeMillis();
+		final long t4 = System.currentTimeMillis();
 		
 		System.out.print("Checking information flow... ");
 		
-		final PossibilisticNIChecker ifc = new PossibilisticNIChecker(sdg, lat);
+		final PossibilisticNIChecker ifc = new PossibilisticNIChecker(sdgSec, lat);
 		final Collection<Violation> vios = ifc.checkIFlow();
 
 		System.out.println("(" + vios.size() + " violations) done.");
 		
-		final long t6 = System.currentTimeMillis();
+		final long t5 = System.currentTimeMillis();
 
 		if (config.verboseTimings) {
 			System.out.println();
 			System.out.println(">>>>>>>> Timings");
-			System.out.println("time start to finish: " + (t6 - t1) + " ms");
+			System.out.println("time start to finish: " + (t5 - t1) + " ms");
 			System.out.println("time build sdg:       " + (t2 - t1) + " ms");
-			System.out.println("time run ifc:         " + (t6 - t5) + " ms");
-			System.out.println("time annotations:     " + (t5 - t4) + " ms");
-			System.out.println("time io:              " + (t4 - t2) + " ms");
+			System.out.println("time run ifc:         " + (t5 - t4) + " ms");
+			System.out.println("time annotations:     " + (t4 - t3) + " ms");
+			System.out.println("time io:              " + (t3 - t2) + " ms");
 			System.out.println("<<<<<<<< Timings");
 			System.out.println();
 		}
 
-		if (vios.size() == 0) {
-			System.out.println("OK: Information flow considered save. The program is non-interferent.");
-		} else {
-			switch (config.policy) {
-			case CONFIDENTIALITY: {
-				System.out.println("WARNING: Information flow considered unsave. It MAY leak high information.");
-			} break;
-			case INTEGRITY: {
-				System.out.println("WARNING: Information flow considered unsave. Public (low) input"
-						+ "  MAY influence confidential (high) information.");
-			} break;
-			default:
-				throw new IllegalStateException("unknown security policy: " + config.policy);
-			}
-		}
+		return Collections.unmodifiableCollection(vios);
 	}
 	
 	private static void annotateSecurityNodes(final Collection<Annotation> annotations, final SecurityPolicy policy) {
