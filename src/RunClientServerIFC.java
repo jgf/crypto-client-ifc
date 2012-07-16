@@ -70,8 +70,8 @@ public class RunClientServerIFC {
 				SecurityLabel.HIGH
 		));
 		
-		configClientOnly.verboseAnnotations = true;
-		configClientOnly.verboseTimings = true;
+		configClientOnly.verboseAnnotations = "true".equals(System.getProperty("verbose.annotations"));
+		configClientOnly.verboseTimings = "true".equals(System.getProperty("verbose.timings"));
 		
 		IFC.run(configClientOnly);
 	}
