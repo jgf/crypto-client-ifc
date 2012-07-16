@@ -87,7 +87,6 @@ Buildfile: /Users/jgf/crypto-client-ifc/build.xml
 check-for-libs:
      [echo] Checking if /Users/jgf/crypto-client-ifc/lib/jSDG-simple.jar exists.
      [echo] Checking if /Users/jgf/crypto-client-ifc/lib/jSDG-stubs-jre1.4.jar exists.
-     [echo] Checking if /Users/jgf/crypto-client-ifc/lib/junit-4.8.2.jar exists.
 
 fetch-lib-ifc:
 

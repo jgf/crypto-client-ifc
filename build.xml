@@ -42,7 +42,6 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	<property name="lib.dir" location="lib"/>
 	<property name="lib-stubs.jar" value="jSDG-stubs-jre1.4.jar" />
 	<property name="lib-ifc.jar" value="jSDG-simple.jar" />
-	<property name="lib-junit.jar" value="junit-4.8.2.jar" />
 	<property name="lib-website" value="http://pp.info.uni-karlsruhe.de/~grafj/ifc/files" />
 	<property name="example.src.dir" location="example/src" />
 	<property name="example.bin.dir" location="example/bin" />
@@ -80,12 +79,11 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	<target name="build-example" description="build the client server example sourcecode">
 		<mkdir dir="${example.bin.dir}" />
 		<javac
-			classpath="${lib.dir}/${lib-junit.jar}"
 			srcdir="${example.src.dir}"
 			destdir="${example.bin.dir}"
 			includeantruntime="false"
-			source="1.5"
-			target="1.5"
+			source="1.4"
+			target="1.4"
 		/>
 	</target>
 
@@ -159,10 +157,6 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 		<condition property="lib-stubs.file.missing">
 			<not> <available file="${lib.dir}/${lib-stubs.jar}" /> </not>
 		</condition>
-		<echo>Checking if ${lib.dir}/${lib-junit.jar} exists.</echo>
-		<condition property="lib-junit.file.missing">
-			<not> <available file="${lib.dir}/${lib-junit.jar}" /> </not>
-		</condition>
 	</target>
 
 	<target name="fetch-lib-ifc" depends="check-for-libs" if="lib-ifc.file.missing">
@@ -173,13 +167,9 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 		<get dest="${lib.dir}/${lib-stubs.jar}" src="${lib-website}/${lib-stubs.jar}" />
 	</target>
 
-	<target name="fetch-lib-junit" depends="check-for-libs" if="lib-junit.file.missing">
-		<get dest="${lib.dir}/${lib-junit.jar}" src="${lib-website}/${lib-junit.jar}" />
-	</target>
-
 	<target
 		name="fetch-libs"
-		depends="fetch-lib-ifc,fetch-lib-stubs,fetch-lib-junit"
+		depends="fetch-lib-ifc,fetch-lib-stubs"
 		description="fetch libraries from website"
 	/>
 
