@@ -229,14 +229,14 @@ public final class IFC {
 		final Collection<Violation> vios = computeIFC(config);
 		
 		if (vios.size() == 0) {
-			System.out.println("OK: Information flow considered save. The program is non-interferent.");
+			System.out.println("OK: Information flow considered safe. The program is non-interferent.");
 		} else {
 			switch (config.policy) {
 			case CONFIDENTIALITY: {
-				System.out.println("WARNING: Information flow considered unsave. It MAY leak high information.");
+				System.out.println("WARNING: Information flow considered unsafe. It MAY leak high information.");
 			} break;
 			case INTEGRITY: {
-				System.out.println("WARNING: Information flow considered unsave. Public (low) input"
+				System.out.println("WARNING: Information flow considered unsafe. Public (low) input"
 						+ "  MAY influence confidential (high) information.");
 			} break;
 			default:
