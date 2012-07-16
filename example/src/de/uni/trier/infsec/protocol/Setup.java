@@ -8,6 +8,20 @@ import de.uni.trier.infsec.pkenc.Encryptor;
 import de.uni.trier.infsec.protocol.Client;
 import de.uni.trier.infsec.protocol.Server;
 
+/**
+ *  Setup for the simple protocol: it creates the server and then,
+ *  depending on the input from the untrusted network, creates some
+ *  (potentially unbounded) number of clients and makes them send
+ *  their messages. 
+ *
+ *  In case of each client, two messages are determined by the
+ *  environment; one of them is picked and sent by the client,
+ *  depending on the value of a secret bit. The adversary is not
+ *  supposed to learn the value of this bit.
+ * 
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
+ */
 public class Setup {
 	
 	static private boolean secret = false; // SECRET -- an arbitrary value put here

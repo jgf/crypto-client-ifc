@@ -1,5 +1,9 @@
 package de.uni.trier.infsec.pkenc;
 
+/**
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
+ */
 public class MessageTools {
 	
 	public static byte[] copyOf(byte[] message) {

@@ -5,6 +5,9 @@ import de.uni.trier.infsec.crypto.KeyPair;
 
 /**
  * Ideal functionality for public-key encryption: Decryptor
+ *
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
  */
 public final class Decryptor {
 	

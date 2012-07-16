@@ -3,6 +3,10 @@ package de.uni.trier.infsec.network;
 import de.uni.trier.infsec.environment.Environment;
 
 
+/**
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
+ */
 public class Network {
 
 	public static void networkOut(byte[] outEnc) throws NetworkError {

@@ -2,6 +2,10 @@ package de.uni.trier.infsec.crypto;
 
 import de.uni.trier.infsec.environment.Environment;
 
+/**
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
+ */
 public class CryptoLib {
 
 	public static byte[] encrypt(byte[] in, byte[] publKey) {

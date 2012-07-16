@@ -1,5 +1,9 @@
 package de.uni.trier.infsec.environment;
 
+/**
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
+ */
 class Node {
 	int value;
 	Node next;
@@ -8,6 +12,14 @@ class Node {
 	}
 }
 
+/**
+ *  Generic environment for verifying non-interference in an open
+ *  systems (systems interacting with untrusted
+ *  environment/libraries).
+ *
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
+ */
 public class Environment {
 	
 	private static boolean result; // the LOW variable

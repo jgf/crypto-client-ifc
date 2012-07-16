@@ -4,6 +4,9 @@ import de.uni.trier.infsec.crypto.CryptoLib;
 
 /**
  * Ideal functionality for public-key encryption: Encryptor
+ *
+ *  @author Andreas Koch (University of Trier)
+ *  @author Tomasz Truderung (University of Trier)
  */
 public final class Encryptor {
 
