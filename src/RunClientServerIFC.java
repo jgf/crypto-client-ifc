@@ -53,7 +53,7 @@ public class RunClientServerIFC {
 	public static void main(final String[] args) throws ClassHierarchyException, IOException, UnsoundGraphException,
 			CancelException {
 		final IFCConfig configClientOnly = IFCConfig.create("./example/bin",
-				"Lde/uni/trier/infsec/protocols/simplevoting/ClientOnlySetup", SecurityPolicy.CONFIDENTIALITY);
+				"Lde/uni/trier/infsec/protocol/Setup", SecurityPolicy.CONFIDENTIALITY);
 		
 		// annotate input (first parameter) of method untrusted output as leaked to low output
 		configClientOnly.addAnnotation(Annotation.create(
@@ -65,8 +65,8 @@ public class RunClientServerIFC {
 		
 		// annotate references to static variable ClientOnlySetup.secret as high input
 		configClientOnly.addAnnotation(Annotation.create(
-				"de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup.main([Ljava/lang/String;)V",
-				"de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup.secret",
+				"de.uni.trier.infsec.protocol.Setup.main([Ljava/lang/String;)V",
+				"de.uni.trier.infsec.protocol.Setup.secret",
 				SDGNode.Kind.EXPRESSION,
 				SDGNode.Operation.REFERENCE,
 				SecurityLabel.HIGH

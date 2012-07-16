@@ -46,7 +46,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	<property name="lib-website" value="http://pp.info.uni-karlsruhe.de/~grafj/ifc/files" />
 	<property name="example.src.dir" location="example/src" />
 	<property name="example.bin.dir" location="example/bin" />
-	<property name="example.sdg.file" value="de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg" />
+	<property name="example.sdg.file" value="de.uni.trier.infsec.protocol.Setup-main.ifc.pdg" />
 	<property name="viewer.webstart.file" value="graphviewer-webstart.jnlp" />
 
 	<target name="clean" description="clean up all generated files, but not the downloaded ones" >

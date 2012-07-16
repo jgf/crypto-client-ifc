@@ -1,6 +1,4 @@
-package de.uni.trier.infsec.functionalities.pkenc.ideal;
-
-import de.uni.trier.infsec.utils.MessageTools;
+package de.uni.trier.infsec.pkenc;
 
 public class MessagePairList {
 	

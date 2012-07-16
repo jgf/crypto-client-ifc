@@ -1,8 +1,8 @@
-package de.uni.trier.infsec.protocols.simpleprotocol;
+package de.uni.trier.infsec.protocol;
 
-import de.uni.trier.infsec.environment.network.Network;
-import de.uni.trier.infsec.environment.network.NetworkError;
-import de.uni.trier.infsec.functionalities.pkenc.ideal.Encryptor;
+import de.uni.trier.infsec.network.Network;
+import de.uni.trier.infsec.network.NetworkError;
+import de.uni.trier.infsec.pkenc.Encryptor;
 
 final public class Client {
 	private Encryptor BobPKE;
