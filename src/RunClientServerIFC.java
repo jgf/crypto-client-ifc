@@ -15,7 +15,9 @@ import edu.kit.pp.mojo.chasdg.BytecodeLocation;
 
 /**
  * <p>This class runs the non-interference check for the client server encryption example in the paper
- * "A Framework for the Cryptographic Verification of Java-like Programs" at CSF 2012.</p>
+ * "A Framework for the Cryptographic Verification of Java-like Programs" at CSF 2012
+ * (<a href="http://pp.info.uni-karlsruhe.de/publication.php?id=KueTruGra12csf"
+ * >pp.info.uni-karlsruhe.de/publication.php?id=KueTruGra12csf</a>).</p>
  * 
  * <p>It uses a simple interface (<tt>edu.kit.ifc.IFC</tt>) to run information flow checks with our Joana 
  * (<a href="http://pp.info.uni-karlsruhe.de/project.php?id=30">pp.info.uni-karlsruhe.de/project.php?id=30</a>)
