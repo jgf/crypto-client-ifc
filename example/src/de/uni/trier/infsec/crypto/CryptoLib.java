@@ -10,16 +10,16 @@ public class CryptoLib {
 
 	public static byte[] encrypt(byte[] in, byte[] publKey) {
 		// input
-		Environment.untrustedOuput(0x66); // Function code for encryption
-		Environment.untrustedOuput(in.length);
+		Environment.untrustedOutput(0x66); // Function code for encryption
+		Environment.untrustedOutput(in.length);
 		for (int i = 0; i < in.length; i++) {
 			byte b = in[i];
-			Environment.untrustedOuput(b);
+			Environment.untrustedOutput(b);
 		}
-		Environment.untrustedOuput(publKey.length);
+		Environment.untrustedOutput(publKey.length);
 		for (int i = 0; i < publKey.length; i++) {
 			byte b = publKey[i];
-			Environment.untrustedOuput(b);
+			Environment.untrustedOutput(b);
 		}
 		
 		// output
@@ -34,16 +34,16 @@ public class CryptoLib {
 
 	public static byte[] decrypt(byte[] message, byte[] privKey) {
 		// input
-		Environment.untrustedOuput(0x77); // Function code for decryption
-		Environment.untrustedOuput(message.length);
+		Environment.untrustedOutput(0x77); // Function code for decryption
+		Environment.untrustedOutput(message.length);
 		for (int i = 0; i < message.length; i++) {
 			byte b = message[i];
-			Environment.untrustedOuput(b);			
+			Environment.untrustedOutput(b);			
 		}
-		Environment.untrustedOuput(privKey.length);
+		Environment.untrustedOutput(privKey.length);
 		for (int i = 0; i < privKey.length; i++) {
 			byte b = privKey[i];
-			Environment.untrustedOuput(b);
+			Environment.untrustedOutput(b);
 		}
 		
 		// output
@@ -58,7 +58,7 @@ public class CryptoLib {
 
 	public static KeyPair generateKeyPair() {
 		// input
-		Environment.untrustedOuput(0x88); // Function code for generateKeyPair
+		Environment.untrustedOutput(0x88); // Function code for generateKeyPair
 		
 		// ouptut
 		KeyPair returnval = new KeyPair();

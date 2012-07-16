@@ -57,7 +57,7 @@ public class RunClientServerIFC {
 		
 		// annotate input (first parameter) of method untrusted output as leaked to low output
 		configClientServer.addAnnotation(Annotation.create(
-				"de.uni.trier.infsec.environment.Environment.untrustedOuput(I)V",
+				"de.uni.trier.infsec.environment.Environment.untrustedOutput(I)V",
 				BytecodeLocation.ROOT_PARAM_PREFIX + "0",
 				SDGNode.Kind.FORMAL_IN,
 				SecurityLabel.LOW

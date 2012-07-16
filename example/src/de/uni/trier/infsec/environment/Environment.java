@@ -45,7 +45,7 @@ public class Environment {
     	return tmp;
 	}
 		
-    public static void untrustedOuput(int x) {
+    public static void untrustedOutput(int x) {
 		if (untrustedInput()==0) {
 			result = (x==untrustedInput());
 			throw new Error();  // abort
