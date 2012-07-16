@@ -33,7 +33,7 @@ Technology (http://pp.info.uni-karlsruhe.de/). Feel free to contact us for
 further information about licensing, usage and research related issues.
 
 Juergen Graf &lt;juergen.graf@gmail.com&gt;
- 	</description>
+	</description>
 
 	<!-- set global properties for this build -->
 	<property name="main.class" value="RunClientServerIFC" />
@@ -48,11 +48,11 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	<property name="example.bin.dir" location="example/bin" />
 	<property name="example.sdg.file" value="de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg" />
 	<property name="viewer.webstart.file" value="graphviewer-webstart.jnlp" />
-  
+
 	<target name="clean" description="clean up all generated files, but not the downloaded ones" >
-	    <delete>
-	    	<fileset dir="." includes="*.pdg" />
-    	</delete>
+		<delete>
+			<fileset dir="." includes="*.pdg" />
+		</delete>
 		<delete includeemptydirs="true">
 			<fileset dir="${bin.dir}" includes="**/*" />
 			<fileset dir="${example.bin.dir}" includes="**/*" />
@@ -75,7 +75,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 			target="1.5"
 		/>
 	</target>
-	
+
 	<target name="build-example" description="build the client server example sourcecode">
 		<javac
 			classpath="${lib.dir}/${lib-junit.jar}"
@@ -86,39 +86,39 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 			target="1.5"
 		/>
 	</target>
-	
-    <target
-    	name="ifc"
-    	depends="fetch-libs,build,build-example"
-    	description="run ifc check for client server example"
-    >
-    	<java classname="${main.class}" fork="true" failonerror="true">
-    		<classpath>
-    			<pathelement path="${bin.dir}" />
-    			<pathelement location="${lib.dir}/${lib-ifc.jar}" />
-    		</classpath>
-    		<sysproperty key="verbose.annotations" value="false" />
-    		<sysproperty key="verbose.timings" value="false" />
-    		<jvmarg value="-Xmx1024M" />
-    	</java>
-    </target>
 
-    <target
-    	name="ifc-verbose"
-    	depends="fetch-libs,build,build-example"
-    	description="run verbose ifc check for client server example"
-    >
-    	<java classname="${main.class}" fork="true" failonerror="true">
-    		<classpath>
-    			<pathelement path="${bin.dir}" />
-    			<pathelement location="${lib.dir}/${lib-ifc.jar}" />
-    		</classpath>
-    		<sysproperty key="verbose.annotations" value="true" />
-    		<sysproperty key="verbose.timings" value="true" />
-    		<jvmarg value="-Xmx1024M" />
-    	</java>
-    </target>
-	
+	<target
+		name="ifc"
+		depends="fetch-libs,build,build-example"
+		description="run ifc check for client server example"
+	>
+		<java classname="${main.class}" fork="true" failonerror="true">
+			<classpath>
+				<pathelement path="${bin.dir}" />
+				<pathelement location="${lib.dir}/${lib-ifc.jar}" />
+			</classpath>
+			<sysproperty key="verbose.annotations" value="false" />
+			<sysproperty key="verbose.timings" value="false" />
+			<jvmarg value="-Xmx1024M" />
+		</java>
+	</target>
+
+	<target
+		name="ifc-verbose"
+		depends="fetch-libs,build,build-example"
+		description="run verbose ifc check for client server example"
+	>
+		<java classname="${main.class}" fork="true" failonerror="true">
+			<classpath>
+				<pathelement path="${bin.dir}" />
+				<pathelement location="${lib.dir}/${lib-ifc.jar}" />
+			</classpath>
+			<sysproperty key="verbose.annotations" value="true" />
+			<sysproperty key="verbose.timings" value="true" />
+			<jvmarg value="-Xmx1024M" />
+		</java>
+	</target>
+
 	<target name="check-for-sdg">
 		<echo>Checking if ${example.sdg.file} exists.</echo>
 		<condition property="sdg.file.missing">
@@ -130,7 +130,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 		<echo>${example.sdg.file} not found. Calling ifc task.</echo>
 		<antcall target="ifc" />
 	</target>
-	
+
 	<target name="view-sdg" depends="check-for-sdg,ifc-lazy" description="open sdg file of client server example in GraphViewer">
 		<echo>Starting GraphViewer for ${example.sdg.file}.</echo>
 		<exec executable="javaws">
@@ -165,15 +165,15 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	<target name="fetch-lib-ifc" depends="check-for-libs" if="lib-ifc.file.missing">
 		<get dest="${lib.dir}/${lib-ifc.jar}" src="${lib-website}/${lib-ifc.jar}" />
 	</target>
-	
+
 	<target name="fetch-lib-stubs" depends="check-for-libs" if="lib-stubs.file.missing">
 		<get dest="${lib.dir}/${lib-stubs.jar}" src="${lib-website}/${lib-stubs.jar}" />
 	</target>
-	
+
 	<target name="fetch-lib-junit" depends="check-for-libs" if="lib-junit.file.missing">
 		<get dest="${lib.dir}/${lib-junit.jar}" src="${lib-website}/${lib-junit.jar}" />
 	</target>
-	
+
 	<target
 		name="fetch-libs"
 		depends="fetch-lib-ifc,fetch-lib-stubs,fetch-lib-junit"
