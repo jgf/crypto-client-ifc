@@ -52,19 +52,19 @@ public class RunClientServerIFC {
 
 	public static void main(final String[] args) throws ClassHierarchyException, IOException, UnsoundGraphException,
 			CancelException {
-		final IFCConfig configClientOnly = IFCConfig.create("./example/bin",
+		final IFCConfig configClientServer = IFCConfig.create("./example/bin",
 				"Lde/uni/trier/infsec/protocol/Setup", SecurityPolicy.CONFIDENTIALITY);
 		
 		// annotate input (first parameter) of method untrusted output as leaked to low output
-		configClientOnly.addAnnotation(Annotation.create(
+		configClientServer.addAnnotation(Annotation.create(
 				"de.uni.trier.infsec.environment.Environment.untrustedOuput(I)V",
 				BytecodeLocation.ROOT_PARAM_PREFIX + "0",
 				SDGNode.Kind.FORMAL_IN,
 				SecurityLabel.LOW
 		));
 		
-		// annotate references to static variable ClientOnlySetup.secret as high input
-		configClientOnly.addAnnotation(Annotation.create(
+		// annotate references to static variable Setup.secret as high input
+		configClientServer.addAnnotation(Annotation.create(
 				"de.uni.trier.infsec.protocol.Setup.main([Ljava/lang/String;)V",
 				"de.uni.trier.infsec.protocol.Setup.secret",
 				SDGNode.Kind.EXPRESSION,
@@ -72,10 +72,10 @@ public class RunClientServerIFC {
 				SecurityLabel.HIGH
 		));
 		
-		configClientOnly.verboseAnnotations = "true".equals(System.getProperty("verbose.annotations"));
-		configClientOnly.verboseTimings = "true".equals(System.getProperty("verbose.timings"));
+		configClientServer.verboseAnnotations = "true".equals(System.getProperty("verbose.annotations"));
+		configClientServer.verboseTimings = "true".equals(System.getProperty("verbose.timings"));
 		
-		IFC.run(configClientOnly);
+		IFC.run(configClientServer);
 	}
 
 }
