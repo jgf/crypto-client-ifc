@@ -76,6 +76,18 @@
     			<pathelement path="${bin.dir}"/>
     			<pathelement location="${lib.dir}/${lib-ifc.jar}"/>
     		</classpath>
+    		<sysproperty key="verbose.annotations" value="false"/>
+    		<sysproperty key="verbose.timings" value="false"/>
+    		<jvmarg value="-Xmx1024M"/>
+    	</java>
+    </target>
+
+    <target name="ifc-verbose" depends="build,build-example" description="run ifc check for client server example">
+    	<java classname="${main.class}" fork="true" failonerror="true">
+    		<classpath>
+    			<pathelement path="${bin.dir}"/>
+    			<pathelement location="${lib.dir}/${lib-ifc.jar}"/>
+    		</classpath>
     		<sysproperty key="verbose.annotations" value="true"/>
     		<sysproperty key="verbose.timings" value="true"/>
     		<jvmarg value="-Xmx1024M"/>
