@@ -1,0 +1,122 @@
+GENERAL INFORMATION
+===================
+
+This project contains the non-interference check for the client server
+encryption example in the paper "A Framework for the Cryptographic Verification
+of Java-like Programs" at CSF 2012
+(http://pp.info.uni-karlsruhe.de/publication.php?id=KueTruGra12csf).
+
+It uses a simple interface (edu.kit.ifc.IFC) to run information flow checks
+with our Joana (http://pp.info.uni-karlsruhe.de/project.php?id=30) and IFC4MC 
+(http://pp.info.uni-karlsruhe.de/projects/rs3/rs3.php) tool on Java 1.4
+Bytecode programs. It is possible to check programs for confidentiality or
+integrity.
+
+Please keep in mind that these tools are research prototypes and may contain
+errors. Feel free to inform us of any bugs you encountered at
+https://pp.info.uni-karlsruhe.de/joana-bugs.
+
+You may also want to check out our other information flow related software at
+http://pp.info.uni-karlsruhe.de/~grafj/ifc/. There is a viewer for our
+intermediate program representation, namely system dependence graphs. The
+viewer is called GraphViewer and it can be used to take a look at the '.pdg'
+files that are created during the analysis.
+
+This code and most of the additional libraries have been developed as part of
+the research projects "VALSOFT/Joana" (founded by the German DFG) as well as
+"Information Flow Control for Mobile Components Based on Precise Analysis for
+Parallel Programs - IFC4MC" (founded by the German DFG as part of the Priority
+Program 1496 "Reliably Secure Software Systems – RS3").
+
+You may find more information about this software at the homepage of the
+Programming Paradigms Group - IPD Snelting at the Karlsruhe Institute of
+Technology (http://pp.info.uni-karlsruhe.de/). Feel free to contact us for
+further information about licensing, usage and research related issues.
+
+INSTALLATION
+============
+
+You need Java >1.5 and Ant >1.8 to run and compile this example. You may also
+need an internet connection as files are going to be downloaded by the ant
+script.
+
+Make sure that 'java', 'javac' and 'ant' can be executed from your shell.
+
+RUNNING
+=======
+
+Simply run 'ant' or 'ant ifc' to perform the information flow analysis of
+the example code.
+
+If you change the client server example code or the analysis frontend code,
+it should be compiled automatically. So you can edit the .java files and
+run 'ant ifc' again to see if and how the analysis result changed.
+
+Run 'ant view-sdg' to view the system dependence graph of the example in
+the GraphViewer application.
+
+Run 'ant -p' to view your other options.
+
+DIRECTORIES
+===========
+
+src/
+    Source files of the information flow analysis frontend.
+bin/
+    Compiled .class files of the frontend.
+lib/
+    Library files (will be downloaded by the ant script).
+example/src
+    Source files of the client server example. The main method is at
+    de/uni/trier/infsec/protocols/simplevoting/ClientOnlySetup.java.
+example/bin
+    Compiled .class files of the client server example.
+
+EXAMPLE RUN
+===========
+
+oscar-2 : ~/CryptoClientIFC> ant ifc
+Buildfile: /Users/jgf/CryptoClientIFC/build.xml
+
+check-for-libs:
+     [echo] Checking if /Users/jgf/CryptoClientIFC/lib/jSDG-simple.jar exists.
+     [echo] Checking if /Users/jgf/CryptoClientIFC/lib/jSDG-stubs-jre1.4.jar exists.
+     [echo] Checking if /Users/jgf/CryptoClientIFC/lib/junit-4.8.2.jar exists.
+
+fetch-lib-ifc:
+
+fetch-lib-stubs:
+
+fetch-lib-junit:
+
+fetch-libs:
+
+build:
+
+build-example:
+
+ifc:
+     [java] Analyzing class files from '/Users/jgf/CryptoClientIFC/./example/bin'
+     [java] Setting up analysis scope... (from file ./lib/jSDG-stubs-jre1.4.jar) done.
+     [java] Creating class hierarchy... (475 classes) done.
+     [java] Setting up entrypoint de/uni/trier/infsec/protocols/simplevoting/ClientOnlySetup.main([Ljava/lang/String;)V... done.
+     [java] Building system dependence graph... 
+     [java]     callgraph: 359 nodes and 388 edges
+     [java]     intraproc: ....25%....50%....75%....100%.
+     [java]     interproc: calls.clinit.statics.heap(if,df).misc.convert.summary..
+     [java] done.
+     [java] Time needed: 10311ms - Memory: 47M used.
+     [java] Saving SDG to de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg... done.
+     [java] Checking de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg
+     [java] Annotating SDG nodes... (25 nodes) done.
+     [java] Checking information flow... (0 violations) done.
+     [java] OK: Information flow considered save. The program is non-interferent.
+
+BUILD SUCCESSFUL
+Total time: 13 seconds
+oscar-2 : ~/CryptoClientIFC> 
+
+CONTACT
+=======
+
+Juergen Graf <juergen.graf@gmail.com>
