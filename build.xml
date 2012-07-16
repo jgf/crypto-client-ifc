@@ -35,16 +35,18 @@
 	<property name="lib-stubs.jar" value="jSDG-stubs-jre1.4.jar" />
 	<property name="lib-ifc.jar" value="jSDG-simple.jar" />
 	<property name="lib-junit.jar" value="junit-4.8.2.jar" />
-	<property name="example.src.dir" location="example/src"/>
-	<property name="example.bin.dir" location="example/bin"/>
+	<property name="example.src.dir" location="example/src" />
+	<property name="example.bin.dir" location="example/bin" />
+	<property name="example.sdg.file" value="de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg" />
+	<property name="viewer.webstart.file" value="graphviewer-webstart.jnlp" />
   
 	<target name="clean" description="clean up" >
 	    <delete>
-	    	<fileset dir="." includes="*.pdg"/>
+	    	<fileset dir="." includes="*.pdg" />
     	</delete>
 		<delete includeemptydirs="true">
-			<fileset dir="${bin.dir}" includes="**/*"/>
-			<fileset dir="${example.bin.dir}" includes="**/*"/>
+			<fileset dir="${bin.dir}" includes="**/*" />
+			<fileset dir="${example.bin.dir}" includes="**/*" />
 		</delete>
 	</target>
 
@@ -73,25 +75,53 @@
     <target name="ifc" depends="build,build-example" description="run ifc check for client server example">
     	<java classname="${main.class}" fork="true" failonerror="true">
     		<classpath>
-    			<pathelement path="${bin.dir}"/>
-    			<pathelement location="${lib.dir}/${lib-ifc.jar}"/>
+    			<pathelement path="${bin.dir}" />
+    			<pathelement location="${lib.dir}/${lib-ifc.jar}" />
     		</classpath>
-    		<sysproperty key="verbose.annotations" value="false"/>
-    		<sysproperty key="verbose.timings" value="false"/>
-    		<jvmarg value="-Xmx1024M"/>
+    		<sysproperty key="verbose.annotations" value="false" />
+    		<sysproperty key="verbose.timings" value="false" />
+    		<jvmarg value="-Xmx1024M" />
     	</java>
     </target>
 
     <target name="ifc-verbose" depends="build,build-example" description="run ifc check for client server example">
     	<java classname="${main.class}" fork="true" failonerror="true">
     		<classpath>
-    			<pathelement path="${bin.dir}"/>
-    			<pathelement location="${lib.dir}/${lib-ifc.jar}"/>
+    			<pathelement path="${bin.dir}" />
+    			<pathelement location="${lib.dir}/${lib-ifc.jar}" />
     		</classpath>
-    		<sysproperty key="verbose.annotations" value="true"/>
-    		<sysproperty key="verbose.timings" value="true"/>
-    		<jvmarg value="-Xmx1024M"/>
+    		<sysproperty key="verbose.annotations" value="true" />
+    		<sysproperty key="verbose.timings" value="true" />
+    		<jvmarg value="-Xmx1024M" />
     	</java>
     </target>
+	
+	<target name="check-for-sdg">
+		<echo>Checking if ${example.sdg.file} exists.</echo>
+		<condition property="sdg.file.missing">
+			<not> <available file="${example.sdg.file}" /> </not>
+		</condition>
+	</target>
+	
+	<target name="ifc-lazy" if="sdg.file.missing" >
+		<echo>${example.sdg.file} not found. Calling ifc task.</echo>
+		<antcall target="ifc" />
+	</target>
+	
+	<target name="view-sdg" depends="check-for-sdg,ifc-lazy" description="open sdg file of client server example in GraphViewer">
+		<echo>Starting GraphViewer for ${example.sdg.file}.</echo>
+		<exec executable="javaws">
+			<arg value="-open" />
+			<arg value="${example.sdg.file}" />
+			<arg value="${viewer.webstart.file}" />
+		</exec>
+	</target>
+
+	<target name="viewer" description="open the sdg file viewer GraphViewer">
+		<echo>Starting GraphViewer.</echo>
+		<exec executable="javaws">
+			<arg value="${viewer.webstart.file}" />
+		</exec>
+	</target>
 
 </project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://pp.info.uni-karlsruhe.de/~grafj/ifc/" href="graphviewer-webstart.jnlp">
+    <information>
+        <title>GraphViewer</title>
+        <description>View system dependence graphs created by the Joana/jSDG information flow control tool.</description>
+        <vendor>KIT, Programming Paradigms Group - IPD Snelting</vendor>
+        <homepage href="http://pp.info.uni-karlsruhe.de/" />
+		<icon href="icons/GraphViewer_icon.png"/>
+	    <shortcut online="false">
+			<desktop/>
+      		<menu submenu="Joana IFC Tools"/>
+	  	</shortcut>
+	  	<offline-allowed />
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <java version="1.6+" java-vm-args="-Xmx1024m"/>
+        <jar href="./dist/GraphViewer.jar" main="true" />
+    </resources>
+    <application-desc
+         name="GraphViewer"
+         main-class="graph.viewer.GraphViewer"
+         width="800"
+         height="900">
+     </application-desc>
+     <security>
+     	<all-permissions/>
+     </security>
+     <update check="background"/>
+</jnlp>
