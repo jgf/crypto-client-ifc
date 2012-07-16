@@ -66,6 +66,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	</target>
 
 	<target name="build" description="build the analysis sourcecode">
+		<mkdir dir="${bin.dir}" />
 		<javac 
 			classpath="${lib.dir}/${lib-ifc.jar}"
 			srcdir="${src.dir}"
@@ -77,6 +78,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 	</target>
 
 	<target name="build-example" description="build the client server example sourcecode">
+		<mkdir dir="${example.bin.dir}" />
 		<javac
 			classpath="${lib.dir}/${lib-junit.jar}"
 			srcdir="${example.src.dir}"
@@ -149,6 +151,7 @@ Juergen Graf &lt;juergen.graf@gmail.com&gt;
 
 	<target name="check-for-libs">
 		<echo>Checking if ${lib.dir}/${lib-ifc.jar} exists.</echo>
+		<mkdir dir="${lib.dir}" />
 		<condition property="lib-ifc.file.missing">
 			<not> <available file="${lib.dir}/${lib-ifc.jar}" /> </not>
 		</condition>
