@@ -73,7 +73,7 @@ lib/
     Library files (will be downloaded by the ant script).
 example/src
     Source files of the client server example. The main method is at
-    de/uni/trier/infsec/protocols/simplevoting/ClientOnlySetup.java.
+    de/uni/trier/infsec/protocol/Setup.java.
 example/bin
     Compiled .class files of the client server example.
 
