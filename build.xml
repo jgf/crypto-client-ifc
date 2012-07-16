@@ -35,18 +35,25 @@
 	<property name="lib-stubs.jar" value="jSDG-stubs-jre1.4.jar" />
 	<property name="lib-ifc.jar" value="jSDG-simple.jar" />
 	<property name="lib-junit.jar" value="junit-4.8.2.jar" />
+	<property name="lib-website" value="http://pp.info.uni-karlsruhe.de/~grafj/ifc/files" />
 	<property name="example.src.dir" location="example/src" />
 	<property name="example.bin.dir" location="example/bin" />
 	<property name="example.sdg.file" value="de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg" />
 	<property name="viewer.webstart.file" value="graphviewer-webstart.jnlp" />
   
-	<target name="clean" description="clean up" >
+	<target name="clean" description="clean up all generated files, but not the downloaded ones." >
 	    <delete>
 	    	<fileset dir="." includes="*.pdg" />
     	</delete>
 		<delete includeemptydirs="true">
 			<fileset dir="${bin.dir}" includes="**/*" />
 			<fileset dir="${example.bin.dir}" includes="**/*" />
+		</delete>
+	</target>
+	
+	<target name="clean-full" depends="clean" description="remove everything including downloaded libraries">
+		<delete includeemptydirs="true">
+			<fileset dir="${lib.dir}" includes="**/*" />
 		</delete>
 	</target>
 
@@ -72,7 +79,11 @@
 		/>
 	</target>
 	
-    <target name="ifc" depends="build,build-example" description="run ifc check for client server example">
+    <target
+    	name="ifc"
+    	depends="fetch-libs,build,build-example"
+    	description="run ifc check for client server example"
+    >
     	<java classname="${main.class}" fork="true" failonerror="true">
     		<classpath>
     			<pathelement path="${bin.dir}" />
@@ -84,7 +95,11 @@
     	</java>
     </target>
 
-    <target name="ifc-verbose" depends="build,build-example" description="run ifc check for client server example">
+    <target
+    	name="ifc-verbose"
+    	depends="fetch-libs,build,build-example"
+    	description="run ifc check for client server example"
+    >
     	<java classname="${main.class}" fork="true" failonerror="true">
     		<classpath>
     			<pathelement path="${bin.dir}" />
@@ -123,5 +138,38 @@
 			<arg value="${viewer.webstart.file}" />
 		</exec>
 	</target>
+
+	<target name="check-for-libs">
+		<echo>Checking if ${lib.dir}/${lib-ifc.jar} exists.</echo>
+		<condition property="lib-ifc.file.missing">
+			<not> <available file="${lib.dir}/${lib-ifc.jar}" /> </not>
+		</condition>
+		<echo>Checking if ${lib.dir}/${lib-stubs.jar} exists.</echo>
+		<condition property="lib-stubs.file.missing">
+			<not> <available file="${lib.dir}/${lib-stubs.jar}" /> </not>
+		</condition>
+		<echo>Checking if ${lib.dir}/${lib-junit.jar} exists.</echo>
+		<condition property="lib-junit.file.missing">
+			<not> <available file="${lib.dir}/${lib-junit.jar}" /> </not>
+		</condition>
+	</target>
+
+	<target name="fetch-lib-ifc" depends="check-for-libs" if="lib-ifc.file.missing">
+		<get dest="${lib.dir}/${lib-ifc.jar}" src="${lib-website}/${lib-ifc.jar}" />
+	</target>
+	
+	<target name="fetch-lib-stubs" depends="check-for-libs" if="lib-stubs.file.missing">
+		<get dest="${lib.dir}/${lib-stubs.jar}" src="${lib-website}/${lib-stubs.jar}" />
+	</target>
+	
+	<target name="fetch-lib-junit" depends="check-for-libs" if="lib-junit.file.missing">
+		<get dest="${lib.dir}/${lib-junit.jar}" src="${lib-website}/${lib-junit.jar}" />
+	</target>
+	
+	<target
+		name="fetch-libs"
+		depends="fetch-lib-ifc,fetch-lib-stubs,fetch-lib-junit"
+		description="fetch libraries from website"
+	/>
 
 </project>
