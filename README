@@ -80,13 +80,14 @@ example/bin
 EXAMPLE RUN
 ===========
 
-oscar-2 : ~/CryptoClientIFC> ant ifc
-Buildfile: /Users/jgf/CryptoClientIFC/build.xml
+oscar-2 : ~/crypto-client-ifc
+509> ant
+Buildfile: /Users/jgf/crypto-client-ifc/build.xml
 
 check-for-libs:
-     [echo] Checking if /Users/jgf/CryptoClientIFC/lib/jSDG-simple.jar exists.
-     [echo] Checking if /Users/jgf/CryptoClientIFC/lib/jSDG-stubs-jre1.4.jar exists.
-     [echo] Checking if /Users/jgf/CryptoClientIFC/lib/junit-4.8.2.jar exists.
+     [echo] Checking if /Users/jgf/crypto-client-ifc/lib/jSDG-simple.jar exists.
+     [echo] Checking if /Users/jgf/crypto-client-ifc/lib/jSDG-stubs-jre1.4.jar exists.
+     [echo] Checking if /Users/jgf/crypto-client-ifc/lib/junit-4.8.2.jar exists.
 
 fetch-lib-ifc:
 
@@ -101,25 +102,26 @@ build:
 build-example:
 
 ifc:
-     [java] Analyzing class files from '/Users/jgf/CryptoClientIFC/./example/bin'
+     [java] Analyzing class files from '/Users/jgf/crypto-client-ifc/./example/bin'
      [java] Setting up analysis scope... (from file ./lib/jSDG-stubs-jre1.4.jar) done.
-     [java] Creating class hierarchy... (475 classes) done.
-     [java] Setting up entrypoint de/uni/trier/infsec/protocols/simplevoting/ClientOnlySetup.main([Ljava/lang/String;)V... done.
+     [java] Creating class hierarchy... (472 classes) done.
+     [java] Setting up entrypoint de/uni/trier/infsec/protocol/Setup.main([Ljava/lang/String;)V... done.
      [java] Building system dependence graph... 
-     [java]     callgraph: 359 nodes and 388 edges
+     [java]     callgraph: 318 nodes and 342 edges
      [java]     intraproc: ....25%....50%....75%....100%.
      [java]     interproc: calls.clinit.statics.heap(if,df).misc.convert.summary..
      [java] done.
-     [java] Time needed: 10311ms - Memory: 47M used.
-     [java] Saving SDG to de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg... done.
-     [java] Checking de.uni.trier.infsec.protocols.simplevoting.ClientOnlySetup-main.ifc.pdg
-     [java] Annotating SDG nodes... (25 nodes) done.
+     [java] Time needed: 9744ms - Memory: 70M used.
+     [java] Saving SDG to de.uni.trier.infsec.protocol.Setup-main.ifc.pdg... done.
+     [java] Checking de.uni.trier.infsec.protocol.Setup-main.ifc.pdg
+     [java] Annotating SDG nodes... (22 nodes) done.
      [java] Checking information flow... (0 violations) done.
-     [java] OK: Information flow considered save. The program is non-interferent.
+     [java] OK: Information flow considered safe. The program is non-interferent.
 
 BUILD SUCCESSFUL
-Total time: 13 seconds
-oscar-2 : ~/CryptoClientIFC> 
+Total time: 12 seconds
+oscar-2 : ~/crypto-client-ifc
+510> 
 
 CONTACT
 =======
