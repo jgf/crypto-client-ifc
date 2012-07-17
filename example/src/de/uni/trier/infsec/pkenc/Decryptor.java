@@ -13,7 +13,7 @@ public final class Decryptor {
 	
 	private byte[] privKey; 
 	private byte[] publKey;
-	private MessagePairList log;
+	private MessagePairList log = new MessagePairList();
 
 	public Decryptor() {
 		KeyPair keypair = CryptoLib.generateKeyPair();
