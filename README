@@ -97,8 +97,6 @@ fetch-lib-ifc:
 
 fetch-lib-stubs:
 
-fetch-lib-junit:
-
 fetch-libs:
 
 build:
